@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { TypographyH1 } from "@/components/ui/typography";
+import { TypographyH1, TypographyH3 } from "@/components/ui/typography";
 import React from "react";
 
 type Props = {};
@@ -7,9 +7,7 @@ type Props = {};
 const HomePage = (props: Props) => {
   return (
     <>
-      <div>HomePage</div>
-      <TypographyH1>Home Page</TypographyH1>
-      <Button>Click me</Button>
+      <TypographyH3>Home Page</TypographyH3>
     </>
   );
 };
