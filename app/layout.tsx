@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar/navbar";
 import { Separator } from "@/components/ui/separator";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Poppins } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ const RootLayout = (props: Props) => {
           <Layout>
             <main className=" py-12">{props.children}</main>
           </Layout>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -10,16 +10,16 @@ type Props = {};
 
 const Navbar = (props: Props) => {
   return (
-    <nav className=" flex justify-between items-center py-6">
+    <nav className=" flex justify-between items-center py-6 sticky  top-0">
       <div>
         <div className=" hidden sm:block">
           <NextLink href={"/"}>
             <TypographyH3>
-              <span className=" overline underline-offset-4 decoration-indigo-600 decoration-4">
+              <span className=" overline underline-offset-4 decoration-primary decoration-4">
                 EXPENSE
               </span>
               &nbsp;
-              <span className=" underline underline-offset-4 decoration-indigo-600 decoration-4">
+              <span className=" underline underline-offset-4 decoration-primary decoration-4">
                 TRACKER
               </span>
             </TypographyH3>

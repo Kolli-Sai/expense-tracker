@@ -15,7 +15,7 @@ export const DashboardLink = () => {
     <NextLink href="/dashboard">
       <TypographyLead
         className={`${
-          isActive ? "text-foreground underline underline-offset-4" : ""
+          isActive ? "text-primary underline underline-offset-4" : ""
         }`}
       >
         Dashboard
