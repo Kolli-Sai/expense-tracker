@@ -13,7 +13,7 @@ import Chart from "chart.js/auto";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import NextLink from "next/link";
-import { Plus } from "lucide-react";
+import { MoveRight, Plus } from "lucide-react";
 type Props = {};
 
 const DashboardPage = (props: Props) => {
@@ -67,11 +67,17 @@ const DashboardPage = (props: Props) => {
 
   return (
     <>
-      <div className=" my-6 flex justify-end">
+      <div className=" my-6 flex justify-end items-center gap-4">
         <Button asChild>
           <NextLink href={"/new"}>
             Add New
             <Plus className="ml-2" size={20} />
+          </NextLink>
+        </Button>
+        <Button asChild>
+          <NextLink href={"/view-all"}>
+            View All
+            <MoveRight className="ml-2" size={20} />
           </NextLink>
         </Button>
       </div>
@@ -97,7 +103,7 @@ const DashboardPage = (props: Props) => {
             <Card>
               <CardHeader>
                 <CardTitle>Expenses</CardTitle>
-                <CardDescription>total income upto now</CardDescription>
+                <CardDescription>total expense upto now</CardDescription>
               </CardHeader>
               <CardContent>
                 <p>Card Content</p>
@@ -106,7 +112,7 @@ const DashboardPage = (props: Props) => {
             <Card>
               <CardHeader>
                 <CardTitle>Savings</CardTitle>
-                <CardDescription>total income upto now</CardDescription>
+                <CardDescription>total savings upto now</CardDescription>
               </CardHeader>
               <CardContent>
                 <p>Card Content</p>
@@ -114,8 +120,8 @@ const DashboardPage = (props: Props) => {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle>Income</CardTitle>
-                <CardDescription>total income upto now</CardDescription>
+                <CardTitle>Loss</CardTitle>
+                <CardDescription>total loss upto now</CardDescription>
               </CardHeader>
               <CardContent>
                 <p>Card Content</p>

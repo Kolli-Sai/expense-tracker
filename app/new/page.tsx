@@ -1,6 +1,16 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import IncomeForm from "@/components/forms/income-form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import ExpenseForm from "@/components/forms/expense-form";
 
 type Props = {};
 
@@ -8,17 +18,44 @@ const AddNew = (props: Props) => {
   return (
     <>
       <div className=" flex justify-center items-center">
-        <div className=" w-400 max-w-md">
-          <Tabs defaultValue="income" className="w-[400px]">
-            <TabsList>
-              <TabsTrigger value="income">Income</TabsTrigger>
-              <TabsTrigger value="expense">Expense</TabsTrigger>
+        <div className=" p-4">
+          <Tabs
+            defaultValue="income"
+            className="w-[280px] sm:w-[400px] max-w-md flex-shrink"
+          >
+            <TabsList className=" w-full">
+              <TabsTrigger value="income" className=" w-full">
+                Income
+              </TabsTrigger>
+              <TabsTrigger value="expense" className="w-full">
+                Expense
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="income">
-              Make changes to your account here.
+              <Card>
+                <CardHeader>
+                  <CardTitle>InCome</CardTitle>
+                  <CardDescription>
+                    Add your income details here
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <IncomeForm />
+                </CardContent>
+              </Card>
             </TabsContent>
             <TabsContent value="expense">
-              Change your password here.
+              <Card>
+                <CardHeader>
+                  <CardTitle>Expenses</CardTitle>
+                  <CardDescription>
+                    Add your expense details here
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ExpenseForm />
+                </CardContent>
+              </Card>
             </TabsContent>
           </Tabs>
         </div>
