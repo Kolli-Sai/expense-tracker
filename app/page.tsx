@@ -8,10 +8,16 @@ import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import NextLink from "next/link";
+import { getAuthSession } from "@/lib/auth-options";
+import { redirect } from "next/navigation";
 
 type Props = {};
 
-const HomePage = (props: Props) => {
+const HomePage = async (props: Props) => {
+  const { session } = await getAuthSession();
+  if (session) {
+    return redirect("/dashboard");
+  }
   return (
     <>
       <section className="text-foreground body-font">

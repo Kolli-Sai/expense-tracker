@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Poppins } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
+import Providers from "./providers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,21 +22,23 @@ const RootLayout = (props: Props) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={poppins.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Layout>
-            <Navbar />
-          </Layout>
-          <Separator />
-          <Layout>
-            <main className=" py-12">{props.children}</main>
-          </Layout>
-          <Toaster />
-        </ThemeProvider>
+        <Providers>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Layout>
+              <Navbar />
+            </Layout>
+            <Separator />
+            <Layout>
+              <main className=" py-12">{props.children}</main>
+            </Layout>
+            <Toaster />
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

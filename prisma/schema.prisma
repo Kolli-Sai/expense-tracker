@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum IncomeCategory {
+  Salary
+  Gifts
+  Investments
+  Others
+}
+
+model Income {
+  id          String         @id @default(auto()) @map("_id") @db.ObjectId
+  type        String         @default("income")
+  title       String
+  description String?
+  amount      Float
+  category    IncomeCategory
+  date        DateTime
+  createdBy   String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+enum ExpenseCategory {
+  Food
+  Transport
+  Bills
+  Entertainment
+  Others
+}
+
+model Expense {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  type        String          @default("expense")
+  title       String
+  description String?
+  amount      Float
+  category    ExpenseCategory
+  date        DateTime
+  createdBy   String
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}

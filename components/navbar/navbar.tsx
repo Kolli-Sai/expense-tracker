@@ -6,9 +6,11 @@ import { ThemeSwitcher } from "../theme-switcher";
 import NavbarAvatar from "./navbar-avatar";
 import { DashboardLink } from "./dashboard-link";
 import NavbarMenu from "./navbar-menu";
+import { getAuthSession } from "@/lib/auth-options";
 type Props = {};
 
-const Navbar = (props: Props) => {
+const Navbar = async (props: Props) => {
+  const { session } = await getAuthSession();
   return (
     <nav className=" flex justify-between items-center py-6 sticky  top-0">
       <div>
@@ -36,14 +38,21 @@ const Navbar = (props: Props) => {
         <div>
           <ThemeSwitcher />
         </div>
-        <div>
-          <Button asChild>
-            <NextLink href={"/login"}>Login</NextLink>
-          </Button>
-        </div>
-        <div>
-          <NavbarAvatar />
-        </div>
+        {!session && (
+          <div>
+            <Button asChild>
+              <NextLink href={"/login"}>Login</NextLink>
+            </Button>
+          </div>
+        )}
+        {session && (
+          <div>
+            <NavbarAvatar
+              email={session?.user.email as string}
+              image={session?.user.image as string}
+            />
+          </div>
+        )}
       </div>
     </nav>
   );

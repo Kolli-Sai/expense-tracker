@@ -11,10 +11,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ExpenseForm from "@/components/forms/expense-form";
+import { getAuthSession } from "@/lib/auth-options";
+import { redirect } from "next/navigation";
 
 type Props = {};
 
-const AddNew = (props: Props) => {
+const AddNew = async (props: Props) => {
+  const { session } = await getAuthSession();
+  if (!session) {
+    return redirect("/login");
+  }
   return (
     <>
       <div className=" flex justify-center items-center">

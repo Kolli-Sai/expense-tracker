@@ -3,9 +3,16 @@ import React from "react";
 import Image from "next/image";
 
 import SigninButton from "@/components/signin-button";
+import { getAuthSession } from "@/lib/auth-options";
+import { redirect } from "next/navigation";
 type Props = {};
 
-const LoginPage = (props: Props) => {
+const LoginPage = async (props: Props) => {
+  const { session } = await getAuthSession();
+  
+  if (session) {
+    return redirect("/dashboard");
+  }
   return (
     <>
       <section className="text-primary-foreground body-font">

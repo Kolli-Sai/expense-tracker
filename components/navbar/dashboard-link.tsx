@@ -5,12 +5,12 @@ import { TypographyLead } from "../ui/typography";
 export const DashboardLink = () => {
   const pathname = usePathname();
   const isActive = pathname === "/dashboard";
-  console.log({
-    dashboardLinkComponent: {
-      pathname,
-      isActive,
-    },
-  });
+  // console.log({
+  //   dashboardLinkComponent: {
+  //     pathname,
+  //     isActive,
+  //   },
+  // });
   return (
     <NextLink href="/dashboard">
       <TypographyLead

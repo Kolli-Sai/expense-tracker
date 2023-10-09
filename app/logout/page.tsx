@@ -9,9 +9,15 @@ import React from "react";
 import Image from "next/image";
 import NextLink from "next/link";
 import SignoutButton from "@/components/signout-button";
+import { getAuthSession } from "@/lib/auth-options";
+import { redirect } from "next/navigation";
 type Props = {};
 
-const LogoutPage = (props: Props) => {
+const LogoutPage = async (props: Props) => {
+  const { session } = await getAuthSession();
+  if (!session) {
+    return redirect("/login");
+  }
   return (
     <>
       <section className="text-foreground body-font">

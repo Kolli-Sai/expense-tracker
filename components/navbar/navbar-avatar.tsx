@@ -10,7 +10,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
-type Props = {};
+type Props = {
+  image?: string;
+  email?: string;
+};
 
 const NavbarAvatar = (props: Props) => {
   const router = useRouter();
@@ -18,14 +21,14 @@ const NavbarAvatar = (props: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
+          <AvatarImage src={props.image} />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>
           Signedin as <br />
-          <strong>shadcn</strong>
+          <strong>{ props.email}</strong>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => router.push("/logout")}>
