@@ -106,14 +106,14 @@ export const getAllDetails = async () => {
     const totalExpense = expenses.reduce((acc, curr) => acc + curr.amount, 0);
     const totalIncome = incomes.reduce((acc, curr) => acc + curr.amount, 0);
     const savings = totalIncome - totalExpense;
-    const loss = totalExpense - totalIncome;
+    const loss = totalIncome - totalExpense;
     return {
       success: true,
       data: {
         income: totalIncome,
         expense: totalExpense,
         savings: savings > 0 ? savings : 0,
-        loss: loss,
+        loss,
       },
     };
   } catch (error) {
@@ -198,4 +198,4 @@ export const deleteIncome = async (id: string) => {
   } finally {
     await prisma.$disconnect();
   }
-}
+};
