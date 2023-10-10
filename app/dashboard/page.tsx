@@ -16,6 +16,7 @@ import { IndianRupee, MoveRight, Plus } from "lucide-react";
 import { redirect } from "next/navigation";
 import { getAuthSession } from "@/lib/auth-options";
 import { getAllDetails } from "@/actions";
+import DougnutChart from "@/components/doughnut-chart";
 type Props = {};
 
 const DashboardPage = async (props: Props) => {
@@ -24,10 +25,39 @@ const DashboardPage = async (props: Props) => {
   if (!session) {
     return redirect("/login");
   }
+
   const { success, error, data } = await getAllDetails();
   console.log({
     getAllDetailsData: data,
   });
+
+  const chartData = {
+    labels: ["Income", "Expense", "Savings", "Loss"],
+    datasets: [
+      {
+        label: "",
+        data: [
+          data?.income,
+          data?.expense,
+          data?.savings,
+          data?.loss && data?.loss < 0 ? data?.loss : 0,
+        ],
+        backgroundColor: [
+          "rgba(33, 150, 243, 1) ",
+          "rgba(255, 152, 0, 1)",
+          "rgba(76, 175, 80, 1)",
+          "rgba(244, 67, 54, 1)",
+        ],
+        borderColor: [
+          "rgba(33, 150, 243, 1) ",
+          "rgba(255, 152, 0, 1)",
+          "rgba(76, 175, 80, 1)",
+          "rgba(244, 67, 54, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
   return (
     <>
       <div className=" my-6 flex justify-end items-center gap-4">
@@ -45,7 +75,9 @@ const DashboardPage = async (props: Props) => {
         </Button>
       </div>
       <div className=" grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8">
-        <div></div>
+        <div className=" flex justify-center items-center h-[340px]">
+          <DougnutChart data={chartData} />
+        </div>
         <div>
           <div className=" grid grid-cols-1 gap-4  md:grid-cols-2 md:gap-4">
             <Card>
@@ -86,9 +118,7 @@ const DashboardPage = async (props: Props) => {
               <CardContent className=" flex gap-1  text-red-600 lining-nums">
                 <IndianRupee className=" w-8 h-8 mr-2" />
                 <TypographyH3 className="">
-                  {data?.loss && data?.loss > 0 ? "-" : ""}
-                  &nbsp;
-                  {data?.loss}
+                  {data?.loss && data?.loss < 0 ? data?.loss : 0}
                 </TypographyH3>
               </CardContent>
             </Card>
