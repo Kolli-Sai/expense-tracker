@@ -25,7 +25,9 @@ const DashboardPage = async (props: Props) => {
     return redirect("/login");
   }
   const { success, error, data } = await getAllDetails();
-
+  console.log({
+    getAllDetailsData: data,
+  });
   return (
     <>
       <div className=" my-6 flex justify-end items-center gap-4">
@@ -83,7 +85,11 @@ const DashboardPage = async (props: Props) => {
               </CardHeader>
               <CardContent className=" flex gap-1  text-red-600">
                 <IndianRupee className=" w-8 h-8 mr-2" />
-                <TypographyH3 className="">{data?.loss}</TypographyH3>
+                <TypographyH3 className="">
+                  {data?.loss && data?.loss > 0 ? "-" : ""}
+                  &nbsp;
+                  {data?.loss}
+                </TypographyH3>
               </CardContent>
             </Card>
           </div>

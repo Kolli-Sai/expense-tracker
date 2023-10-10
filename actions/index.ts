@@ -1,6 +1,6 @@
 "use server";
 import { getAuthSession } from "@/lib/auth-options";
-import prisma from "@/lib/db";
+import prisma, { connectToDatabase } from "@/lib/db";
 import { expenseSchema, incomeSchema } from "@/schemas";
 import { ExpenseSchemaType, IncomeSchemaType } from "@/types";
 import { revalidatePath } from "next/cache";
@@ -16,6 +16,7 @@ export const createIncome = async (props: IncomeSchemaType) => {
     if (!validateData.success) {
       throw new Error(validateData.error.message);
     }
+    await connectToDatabase();
 
     const income = await prisma.income.create({
       data: {
@@ -24,7 +25,7 @@ export const createIncome = async (props: IncomeSchemaType) => {
       },
     });
 
-    revalidatePath("/dashboard");
+    revalidatePath("/dashboard", "page");
     return {
       success: true,
       data: income,
@@ -56,7 +57,7 @@ export const createExpense = async (props: ExpenseSchemaType) => {
     if (!validateData.success) {
       throw new Error(validateData.error.message);
     }
-
+    await connectToDatabase();
     const expense = await prisma.expense.create({
       data: {
         ...props,
@@ -64,7 +65,7 @@ export const createExpense = async (props: ExpenseSchemaType) => {
       },
     });
 
-    revalidatePath("/dashboard");
+    revalidatePath("/dashboard", "page");
     return {
       success: true,
       data: expense,
@@ -91,7 +92,7 @@ export const getAllDetails = async () => {
     if (!session) {
       throw new Error("You must be logged in to create Expense");
     }
-
+    await connectToDatabase();
     const expenses = await prisma.expense.findMany({
       where: {
         createdBy: session.user.id as string,
@@ -112,7 +113,7 @@ export const getAllDetails = async () => {
         income: totalIncome,
         expense: totalExpense,
         savings: savings > 0 ? savings : 0,
-        loss: savings ? 0 : loss,
+        loss: loss,
       },
     };
   } catch (error) {
@@ -130,3 +131,71 @@ export const getAllDetails = async () => {
     await prisma.$disconnect();
   }
 };
+
+export const deleteExpense = async (id: string) => {
+  const { session } = await getAuthSession();
+  try {
+    if (!session) {
+      throw new Error("You must be logged in to delete Expense");
+    }
+    await connectToDatabase();
+    const expense = await prisma.expense.delete({
+      where: {
+        id,
+      },
+    });
+    revalidatePath("/dashboard", "page");
+    revalidatePath("/view-all", "page");
+    return {
+      success: true,
+      data: expense,
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+    return {
+      success: false,
+      error: "Something went wrong",
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+};
+
+export const deleteIncome = async (id: string) => {
+  const { session } = await getAuthSession();
+  try {
+    if (!session) {
+      throw new Error("You must be logged in to delete Income");
+    }
+    await connectToDatabase();
+    const income = await prisma.income.delete({
+      where: {
+        id,
+      },
+    });
+    revalidatePath("/dashboard", "page");
+    revalidatePath("/view-all", "page");
+    return {
+      success: true,
+      data: income,
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        error: error.message,
+      };
+    }
+    return {
+      success: false,
+      error: "Something went wrong",
+    };
+  } finally {
+    await prisma.$disconnect();
+  }
+}
