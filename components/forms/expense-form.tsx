@@ -28,7 +28,7 @@ import { expenseSchema, incomeSchema } from "@/schemas";
 
 /**date */
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, RotateCw } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -37,9 +37,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { createExpense } from "@/actions";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 type Props = {};
 
 const ExpenseForm = (props: Props) => {
+  const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<ExpenseSchemaType>({
     mode: "onTouched",
     resolver: zodResolver(expenseSchema),
@@ -53,9 +58,26 @@ const ExpenseForm = (props: Props) => {
   });
 
   /**handleSubmit */
-  const onSubmit = (data: ExpenseSchemaType) => {
-    console.log(data);
-    form.reset();
+  const onSubmit = async (props: ExpenseSchemaType) => {
+    console.log(props);
+    try {
+      const { success, error } = await createExpense(props);
+      if (success) {
+        form.reset();
+        toast({
+          description: "Expense created successfully",
+        });
+        router.push("/dashboard");
+      } else {
+        throw new Error(error);
+      }
+    } catch (error: any) {
+      toast({
+        description: error.message,
+        title: "Error",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -199,7 +221,12 @@ const ExpenseForm = (props: Props) => {
           />
 
           {/**submit */}
-          <Button variant="default">Submit</Button>
+          <Button variant="default" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting && (
+              <RotateCw className="animate-spin mr-2 w-4 h-4" />
+            )}
+            Submit
+          </Button>
         </form>
       </Form>
     </>

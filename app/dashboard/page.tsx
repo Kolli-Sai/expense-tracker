@@ -11,10 +11,11 @@ import {
 
 import { Button } from "@/components/ui/button";
 import NextLink from "next/link";
-import { MoveRight, Plus } from "lucide-react";
+import { IndianRupee, MoveRight, Plus } from "lucide-react";
 
 import { redirect } from "next/navigation";
 import { getAuthSession } from "@/lib/auth-options";
+import { getAllDetails } from "@/actions";
 type Props = {};
 
 const DashboardPage = async (props: Props) => {
@@ -23,6 +24,7 @@ const DashboardPage = async (props: Props) => {
   if (!session) {
     return redirect("/login");
   }
+  const { success, error, data } = await getAllDetails();
 
   return (
     <>
@@ -49,8 +51,9 @@ const DashboardPage = async (props: Props) => {
                 <CardTitle>Income</CardTitle>
                 <CardDescription>total income upto now</CardDescription>
               </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
+              <CardContent className=" flex gap-1  text-blue-600">
+                <IndianRupee className=" w-8 h-8 mr-2" />
+                <TypographyH3 className="">{data?.income}</TypographyH3>
               </CardContent>
             </Card>
             <Card>
@@ -58,8 +61,9 @@ const DashboardPage = async (props: Props) => {
                 <CardTitle>Expenses</CardTitle>
                 <CardDescription>total expense upto now</CardDescription>
               </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
+              <CardContent className=" flex gap-1 text-orange-600">
+                <IndianRupee className=" w-8 h-8 mr-2" />
+                <TypographyH3 className=" ">{data?.expense}</TypographyH3>
               </CardContent>
             </Card>
             <Card>
@@ -67,8 +71,9 @@ const DashboardPage = async (props: Props) => {
                 <CardTitle>Savings</CardTitle>
                 <CardDescription>total savings upto now</CardDescription>
               </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
+              <CardContent className=" flex gap-1 text-green-600">
+                <IndianRupee className=" w-8 h-8 mr-2" />
+                <TypographyH3 className=" ">{data?.savings}</TypographyH3>
               </CardContent>
             </Card>
             <Card>
@@ -76,8 +81,9 @@ const DashboardPage = async (props: Props) => {
                 <CardTitle>Loss</CardTitle>
                 <CardDescription>total loss upto now</CardDescription>
               </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
+              <CardContent className=" flex gap-1  text-red-600">
+                <IndianRupee className=" w-8 h-8 mr-2" />
+                <TypographyH3 className="">{data?.loss}</TypographyH3>
               </CardContent>
             </Card>
           </div>

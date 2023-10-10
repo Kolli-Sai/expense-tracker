@@ -28,7 +28,7 @@ import { incomeSchema } from "@/schemas";
 
 /**date */
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, RotateCw } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Calendar } from "@/components/ui/calendar";
@@ -37,9 +37,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { createIncome } from "@/actions";
+import { useToast } from "../ui/use-toast";
+import { useRouter } from "next/navigation";
 type Props = {};
 
 const IncomeForm = (props: Props) => {
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<IncomeSchemaType>({
     mode: "onTouched",
     resolver: zodResolver(incomeSchema),
@@ -53,9 +58,28 @@ const IncomeForm = (props: Props) => {
   });
 
   /**handleSubmit */
-  const onSubmit = (data: IncomeSchemaType) => {
-    console.log(data);
-    form.reset();
+  const onSubmit = async (props: IncomeSchemaType) => {
+    console.log({
+      incomeFormData: props,
+    });
+    try {
+      const { data, success, error } = await createIncome(props);
+      if (success) {
+        form.reset();
+        toast({
+          description: "Income created successfully",
+        });
+        router.push("/dashboard");
+      } else {
+        throw new Error(error);
+      }
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error.message,
+      });
+    }
   };
 
   return (
@@ -196,7 +220,12 @@ const IncomeForm = (props: Props) => {
           />
 
           {/**submit */}
-          <Button variant="default">Submit</Button>
+          <Button variant="default" disabled={form.formState.isSubmitting}>
+            {form.formState.isSubmitting && (
+              <RotateCw className="animate-spin mr-2 w-4 h-4" />
+            )}
+            Submit
+          </Button>
         </form>
       </Form>
     </>
