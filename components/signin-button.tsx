@@ -22,9 +22,10 @@ const SigninButton = (props: Props) => {
       if (login?.error) {
         throw new Error(login.error);
       } else {
-        toast({
-          description: "Login successful",
-        });
+        // toast({
+        //   description: "Login successful",
+        // });
+        console.log({ login });
       }
     } catch (error: any) {
       console.log({ errorinSignin: error });
