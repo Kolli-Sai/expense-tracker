@@ -19,6 +19,36 @@ export const incomeSchema = z.object({
   }), // Add the date field
 });
 
+export const incomeSchemaWithExtra = incomeSchema.extend({
+  type: z.enum(["income"], {
+    required_error: "Type is required",
+  }),
+  createdAt: z.date({
+    required_error: "CreatedAt is required",
+  }),
+  // updatedAt: z.date({
+  //   required_error: "UpdatedAt is required",
+  // }),
+  id: z.string({
+    required_error: "Id is required",
+  }),
+});
+
+export const expenseSchemaWithExtra = incomeSchema.extend({
+  type: z.enum(["expense"], {
+    required_error: "Type is required",
+  }),
+  createdAt: z.date({
+    required_error: "CreatedAt is required",
+  }),
+  // updatedAt: z.date({
+  //   required_error: "UpdatedAt is required",
+  // }),
+  id: z.string({
+    required_error: "Id is required",
+  }),
+});
+
 export const expenseSchema = z.object({
   title: z
     .string()
