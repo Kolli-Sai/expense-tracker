@@ -53,7 +53,7 @@ const DashboardPage = async (props: Props) => {
                 <CardTitle>Income</CardTitle>
                 <CardDescription>total income upto now</CardDescription>
               </CardHeader>
-              <CardContent className=" flex gap-1  text-blue-600">
+              <CardContent className=" flex gap-1  text-blue-600 lining-nums">
                 <IndianRupee className=" w-8 h-8 mr-2" />
                 <TypographyH3 className="">{data?.income}</TypographyH3>
               </CardContent>
@@ -63,7 +63,7 @@ const DashboardPage = async (props: Props) => {
                 <CardTitle>Expenses</CardTitle>
                 <CardDescription>total expense upto now</CardDescription>
               </CardHeader>
-              <CardContent className=" flex gap-1 text-orange-600">
+              <CardContent className=" flex gap-1 text-orange-600 lining-nums">
                 <IndianRupee className=" w-8 h-8 mr-2" />
                 <TypographyH3 className=" ">{data?.expense}</TypographyH3>
               </CardContent>
@@ -73,7 +73,7 @@ const DashboardPage = async (props: Props) => {
                 <CardTitle>Savings</CardTitle>
                 <CardDescription>total savings upto now</CardDescription>
               </CardHeader>
-              <CardContent className=" flex gap-1 text-green-600">
+              <CardContent className=" flex gap-1 text-green-600 lining-nums">
                 <IndianRupee className=" w-8 h-8 mr-2" />
                 <TypographyH3 className=" ">{data?.savings}</TypographyH3>
               </CardContent>
@@ -83,7 +83,7 @@ const DashboardPage = async (props: Props) => {
                 <CardTitle>Loss</CardTitle>
                 <CardDescription>total loss upto now</CardDescription>
               </CardHeader>
-              <CardContent className=" flex gap-1  text-red-600">
+              <CardContent className=" flex gap-1  text-red-600 lining-nums">
                 <IndianRupee className=" w-8 h-8 mr-2" />
                 <TypographyH3 className="">
                   {data?.loss && data?.loss > 0 ? "-" : ""}
