@@ -13,8 +13,21 @@ import {
 import ExpenseForm from "@/components/forms/expense-form";
 import { getAuthSession } from "@/lib/auth-options";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 
 type Props = {};
+
+export const metadata: Metadata = {
+  title: "Add New",
+  openGraph: {
+    url: "/addnew",
+    title: "Add New",
+  },
+  twitter: {
+    site: "@sai_kolli",
+    title: "Add New",
+  },
+};
 
 const AddNew = async (props: Props) => {
   const { session } = await getAuthSession();

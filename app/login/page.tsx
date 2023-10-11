@@ -5,7 +5,20 @@ import Image from "next/image";
 import SigninButton from "@/components/signin-button";
 import { getAuthSession } from "@/lib/auth-options";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 type Props = {};
+
+export const metadata: Metadata = {
+  title: "Login",
+  openGraph: {
+    url: "/login",
+    title: "Login",
+  },
+  twitter: {
+    site: "@sai_kolli",
+    title: "Login",
+  },
+};
 
 const LoginPage = async (props: Props) => {
   const { session } = await getAuthSession();

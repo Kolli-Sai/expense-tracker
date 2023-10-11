@@ -11,7 +11,21 @@ import NextLink from "next/link";
 import SignoutButton from "@/components/signout-button";
 import { getAuthSession } from "@/lib/auth-options";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
 type Props = {};
+
+export const metadata: Metadata = {
+  title: "Logout",
+  openGraph: {
+    url: "/logout",
+    title: "Logout",
+  },
+  twitter: {
+    site: "@sai_kolli",
+    title: "Logout",
+  },
+
+}
 
 const LogoutPage = async (props: Props) => {
   const { session } = await getAuthSession();
@@ -36,7 +50,7 @@ const LogoutPage = async (props: Props) => {
             <Image
               className="object-cover object-center rounded"
               alt="HomePage Svg"
-              src="/logout2.svg"
+              src="/logout.svg"
               width={720}
               height={600}
             />
