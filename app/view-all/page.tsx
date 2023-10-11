@@ -10,6 +10,19 @@ import { columns } from "@/components/tables/expenses-columns";
 import prisma from "@/lib/db";
 type Props = {};
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "View All",
+  openGraph: {
+    url: "/viewall",
+    title: "View All",
+  },
+  twitter: {
+    site: "@sai_kolli",
+    title: "View All",
+  },
+};
 
 const ViewAllPage = async (props: Props) => {
   const { session } = await getAuthSession();

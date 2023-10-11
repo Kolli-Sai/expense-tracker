@@ -17,7 +17,21 @@ import { redirect } from "next/navigation";
 import { getAuthSession } from "@/lib/auth-options";
 import { getAllDetails } from "@/actions";
 import DougnutChart from "@/components/doughnut-chart";
+import { Metadata } from "next";
 type Props = {};
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  openGraph: {
+    url: "/dashboard",
+    title: "Dashboard",
+  },
+  twitter: {
+    site: "@sai_kolli",
+    title: "Dashboard",
+    
+  },
+};
 
 const DashboardPage = async (props: Props) => {
   const { session } = await getAuthSession();
@@ -27,9 +41,9 @@ const DashboardPage = async (props: Props) => {
   }
 
   const { success, error, data } = await getAllDetails();
-  console.log({
-    getAllDetailsData: data,
-  });
+  // console.log({
+  //   getAllDetailsData: data,
+  // });
 
   const chartData = {
     labels: ["Income", "Expense", "Savings", "Loss"],

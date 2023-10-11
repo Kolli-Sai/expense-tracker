@@ -1,9 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  TypographyH1,
-  TypographyH3,
-  TypographyLead,
-} from "@/components/ui/typography";
+import { TypographyH3, TypographyLead } from "@/components/ui/typography";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -11,9 +7,8 @@ import NextLink from "next/link";
 import { getAuthSession } from "@/lib/auth-options";
 import { redirect } from "next/navigation";
 
-type Props = {};
 
-const HomePage = async (props: Props) => {
+const HomePage = async () => {
   const { session } = await getAuthSession();
   if (session) {
     return redirect("/dashboard");
